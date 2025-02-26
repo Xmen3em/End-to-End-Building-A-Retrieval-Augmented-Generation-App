@@ -1,0 +1,9 @@
+langchain-text-splitters
+langchain
+langchain-community
+langgraph
+langchain-groq
+langchain-huggingface
+langchain-core
+beautifulsoup4
+streamlit
