@@ -3,7 +3,7 @@
 This project is a Retrieval-Augmented Generation (RAG) application built using Streamlit, LangChain, and Hugging Face Transformers. It allows users to interact with a conversational AI that retrieves information from a blog post and generates context-aware responses. The app also includes a memory system to retain conversation history, making it feel like a natural chat.
 
 
-[![Demo Video](https://img.youtube.com/vi/YOUR_VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=YOUR_VIDEO_ID)
+[![Demo Video]()](/imgs,%20vid/Screen%20Recording%202025-02-27%20015204%20(online-video-cutter.com).mp4)
 
 ## Overview
 
