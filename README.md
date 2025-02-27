@@ -1,21 +1,178 @@
-# End-to-End-Building-A-Retrieval-Augmented-Generation-App
- 
-<!-- A typical RAG application has two main components:
+# Conversational RAG App with Memory 🚀
 
-Indexing: a pipeline for ingesting data from a source and indexing it. This usually happens offline.
+This project is a Retrieval-Augmented Generation (RAG) application built using Streamlit, LangChain, and Hugging Face Transformers. It allows users to interact with a conversational AI that retrieves information from a blog post and generates context-aware responses. The app also includes a memory system to retain conversation history, making it feel like a natural chat.
 
-Retrieval and generation: the actual RAG chain, which takes the user query at run time and retrieves the relevant data from the index, then passes that to the model.
 
-Indexing
-Load: First we need to load our data. This is done with Document Loaders.
-Split: Text splitters break large Documents into smaller chunks. This is useful both for indexing data and passing it into a model, as large chunks are harder to search over and won't fit in a model's finite context window.
-Store: We need somewhere to store and index our splits, so that they can be searched over later. This is often done using a VectorStore and Embeddings model.
+[![Demo Video](https://img.youtube.com/vi/YOUR_VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=YOUR_VIDEO_ID)
 
-![alt text](image.png)
+## Overview
 
-Retrieval and generation
-Retrieve: Given a user input, relevant splits are retrieved from storage using a Retriever.
-Generate: A ChatModel / LLM produces an answer using a prompt that includes both the question with the retrieved data
+This app uses Retrieval-Augmented Generation (RAG) to answer user questions based on the content of a blog post. The blog post used in this project is [LLM Powered Autonomous Agents](https://lilianweng.github.io/posts/2023-06-23-agent/), which discusses the components and challenges of building autonomous agents powered by large language models (LLMs).
 
-![alt text](image-1.png) -->
+**The app is built with:**
 
+- Streamlit: For the user interface.
+
+- LangChain: For the RAG pipeline and conversational memory.
+
+- Hugging Face Transformers: For embeddings and language models.
+
+- BeautifulSoup (bs4): For parsing the blog post.
+
+## Features
+
+1. **Conversational Interface**: Users can ask questions and receive answers in a chat-like format.
+
+2. **Memory System**: The app retains conversation history, allowing for context-aware responses.
+
+3. **Sidebar Settings**: Users can adjust the model's behavior (e.g., temperature, max tokens) to control response randomness and length.
+
+4. **Retrieval-Augmented Generation**: The app retrieves relevant information from the blog post and generates accurate, concise answers.
+
+5. **Customizable**: The app can be easily adapted to work with other documents or datasets.
+
+## How It Works
+
+![alt text](/imgs,%20vid/image.png)
+
+1. Document Loading and Chunking:
+
+    The blog post is loaded and split into smaller chunks using WebBaseLoader and RecursiveCharacterTextSplitter.
+
+    These chunks are stored in a vector store for efficient retrieval.
+
+2. Retrieval Tool:
+
+    A retrieval tool is defined to fetch relevant chunks from the vector store based on the user's query.
+
+3. Conversational Graph:
+
+    A state graph is built using StateGraph and MessagesState to handle the flow of messages between the user, retrieval tool, and response generation.
+
+4. Memory System:
+
+    The conversation history is stored in st.session_state.messages, allowing the app to maintain context across interactions.
+
+5. Sidebar Settings:
+
+    Users can adjust the model's temperature and max tokens to control the randomness and length of responses.
+
+![alt text](/imgs,%20vid/image-1.png)
+
+6. Response Generation:
+
+    The app uses the retrieved information and conversation history to generate context-aware responses.
+
+
+## Installation
+**Prerequisites**
+
+- Python 3.8 or higher
+- Streamlit
+- LangChain
+- LangGraph
+- Hugging Face Transformers
+- BeautifulSoup (bs4)
+
+### Steps
+1. Clone the repository:
+
+```bash
+git clone https://github.com/Xmen3em/End-to-End-Building-A-Retrieval-Augmented-Generation-App.git
+cd End-to-End-Building-A-Retrieval-Augmented-Generation-App
+```
+
+2. Install the required dependencies:
+
+```bash
+pip install streamlit langchain langchain-huggingface langchain-core langchain-community bs4
+```
+
+or
+
+```bash
+pip install -r requirements.txt
+```
+
+3. Run the app:
+
+```bash
+streamlit run app.py
+```
+
+4. Open the provided URL in your browser to interact with the app.
+
+## Usage
+**Ask Questions:**
+
+    Type your question in the chat input box and press Enter.
+
+    The app will retrieve relevant information from the blog post and generate a response.
+
+**Adjust Settings:**
+
+    Use the sidebar to adjust the model's temperature and max tokens.
+
+    Temperature controls the randomness of responses (higher values = more creative, lower values = more deterministic).
+
+    Max tokens limits the length of the response.
+
+**View Conversation History:**
+
+    The chat interface displays the conversation history, allowing you to see previous interactions.
+
+## Customization
+**Change the Blog Post**
+To use a different blog post or document:
+
+1. Update the web_paths parameter in the WebBaseLoader initialization:
+
+```python
+loader = WebBaseLoader(
+    web_paths=("https://example.com/your-blog-post",),
+    bs_kwargs=dict(
+        parse_only=bs4.SoupStrainer(
+            class_=("post-content", "post-title", "post-header")
+        )
+    ),
+)
+```
+
+2. Adjust the chunk_size and chunk_overlap parameters in the RecursiveCharacterTextSplitter to suit your document.
+
+**Modify the Model**
+To use a different language model:
+
+1. Update the init_chat_model function:
+
+```python
+llm = init_chat_model(
+    "your-model-name",
+    model_provider="your-model-provider",
+    temperature=temperature,
+    max_tokens=max_tokens,
+)
+```
+
+2. Ensure the model is compatible with LangChain and Hugging Face Transformers.
+
+## Contributing
+Contributions are welcome! If you'd like to contribute to this project, please follow these steps:
+
+- Fork the repository.
+
+- Create a new branch for your feature or bug fix.
+
+- Commit your changes and push to the branch.
+
+- Submit a pull request.
+
+## Acknowledgments
+
+- [LangChain](https://langchain.com/) for the RAG pipeline and conversational memory.
+
+- [Hugging Face Transformers](https://huggingface.co/transformers/) for embeddings and language models.
+
+- [Streamlit](https://streamlit.io/) for the user interface.
+
+- [Lilian Weng](https://lilianweng.github.io/) for the blog post used in this project.
